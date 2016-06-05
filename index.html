@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<form>
+<input type="text" id="searchbox" size="30" onkeyup="ajaxCall(this.value)">
+<div id="livesearch"></div>
+</form>
+
+<script>
+function mycall(str) {
+	//alert(str);
+	document.getElementById("searchbox").value=str;
+	document.getElementById("livesearch").innerHTML="";
+	document.getElementById("livesearch").style.border="0px";
+}
+function ajaxCall(str) {
+  if (str.length==0) { 
+    document.getElementById("livesearch").innerHTML="";
+    document.getElementById("livesearch").style.border="0px";
+    return;
+  }	
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+      document.getElementById("livesearch").innerHTML=xhttp.responseText;
+      document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+    }
+  };
+  xhttp.open("GET", "livesearch.php?q="+str,true);
+  xhttp.send();
+}
+</script>
+
+</body>
+</html>
